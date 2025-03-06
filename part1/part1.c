@@ -8,5 +8,5 @@ int main() {
     remove(filename);
     file = open(filename, O_WRONLY | O_CREAT);
     close(file);
-    return;
+    return 0;
 }
