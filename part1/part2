@@ -1,1 +1,17 @@
+First create Module name my_timer
+with Proc entry /proc/timer.
 
+Goals: Display current time in seconds + fractional part for nanoseconds).
+       Elapsed time since the last read, if can be done(meaning is not first read)
+
+Some Ideas:
+  On insmod my_timer.ko, the /proc/timer entry is created.
+On rmmod my_timer.ko, the /proc/timer entry is removed.
+
+Each time we read /proc/timer:
+  Show the current time in a format like X.YYYYYYYYY, where X is seconds and Y is nanoseconds.
+  If this is not the very first read, we can print how much time has elapsed since the previous read in the same format( this could be trickier).
+
+
+Approach Process:
+  Gotta define a global/static var like struct 
