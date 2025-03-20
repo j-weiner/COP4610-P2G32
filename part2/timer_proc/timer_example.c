@@ -5,14 +5,16 @@
 #include <linux/timekeeping.h>
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("cop4610t");
-MODULE_DESCRIPTION("Example of kernel module for timer");
-
-#define ENTRY_NAME "timer_example"
+MODULE_AUTHOR("Joseph Weiner, Jonathan Alcineus, Judah Alter");
+MODULE_DESCRIPTION("Timer Kernel Module");
+//Started from example code provided by cop4610t
+#define ENTRY_NAME "timer"
 #define PERMS 0644
 #define PARENT NULL
 
 static struct proc_dir_entry* timer_entry;
+static struct timespec64 last_time;
+static bool first = true;
 
 static ssize_t timer_read(struct file *file, char __user *ubuf, size_t count, loff_t *ppos)
 {
@@ -25,11 +27,28 @@ static ssize_t timer_read(struct file *file, char __user *ubuf, size_t count, lo
         return 0;
 
     ktime_get_real_ts64(&ts_now);
+    
+    if (first) {
+        len = snprintf(buf, sizeof(buf), "current time: %lld.%09ld\n", (long long)ts_now.tv_sec, ts_now.tv_nsec);
+        first = false;
+        last_time = ts_now;
+    } else {
+        struct timespec64 elapsed = {
+            .tv_sec = ts_now.tv_sec - last_time.tv_sec,
+            .tv_nsec = ts_now.tv_nsec - last_time.tv_nsec
+        };
+    
+        if (elapsed.tv_nsec < 0) {
+            elapsed.tv_sec--;
+            elapsed.tv_nsec += NSEC_PER_SEC;
+        }
+    
+        len = snprintf(buf, sizeof(buf), "current time: %lld.%09ld\nelapsed time: %lld.%09ld\n",//string to be printed
+        (long long)ts_now.tv_sec, ts_now.tv_nsec, (long long)elapsed.tv_sec, elapsed.tv_nsec);//variables
 
-    len = snprintf(buf, sizeof(buf), "current time: %lld\n", (long long)ts_now.tv_sec);
-
+        last_time = ts_now;
+    }
     return simple_read_from_buffer(ubuf, count, ppos, buf, len);
-
     // Alternative: use copy_from_user then set *ppos = the bytes copied to the user.
 }
 
