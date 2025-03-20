@@ -1,4 +1,4 @@
-obj-m += timer_example.o
+obj-m += timer.o
 
 ccflags-y := -g -Wno-error
 
