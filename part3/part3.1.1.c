@@ -35,6 +35,7 @@ bool stools_are_adjacent(int t1, int s1, int t2, int s2) {
 }
 
 /*bool stools_are_adjacent(int s1, int s2) {
+
     // Return false if out of range, or if same stool
     if (s1 < 0 || s1 >= Tstools|| s2 < 0 || s2 >= Tstools || s1 == s2)
         return false;
