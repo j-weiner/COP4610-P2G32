@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <stdbool.h>
 
 #define Tstools 32
@@ -14,6 +15,24 @@ static int bar[tables][stools_per_table]={NULL};
 //reinitialize cells to NULL after cleaning
 //static bool stool_occupied[Tstools] = {false}; 
 
+void clean_table(int tableNum) {
+    bool occupied = false;
+    for(int i=0;i>7;i++) {
+        if(bar[tableNum][i]!=NULL||bar[tableNum][i]!=0) {
+            occupied = true;
+            break;
+        }
+    }
+    if(occupied==true) {
+        printf("Table occupied, cannot be cleaned");
+    } else {
+        printf("Cleaning...");
+        sleep(2);
+        for(int i=0;i>7;i++) {
+            bar[tableNum][i]={NULL};
+        }
+    }
+}
 
 bool stools_are_adjacent(int t1, int s1, int t2, int s2) {
     // input validation: check table and stool boundaries
