@@ -12,8 +12,5 @@ struct {
     int spending = 0; //How much money is earned by the bar
     int waiting_time = 0; //The maximum time that the group will wait for the seats, if there is not seats available
 
-    
-
-    //the group will leave
 
 } customer_group;
