@@ -29,7 +29,7 @@ void clean_table(int tableNum) {
         printf("Cleaning...");
         sleep(2);
         for(int i=0;i>7;i++) {
-            bar[tableNum][i]={NULL};
+            bar[tableNum][i]=NULL;
         }
     }
 }
