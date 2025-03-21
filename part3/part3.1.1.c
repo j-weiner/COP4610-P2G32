@@ -1,11 +1,41 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-
 #define Tstools 32
-static bool stool_occupied[Tstools] = {false}; 
 
-bool stools_are_adjacent(int s1, int s2) {
+#define tables 4
+#define stools_per_table 8
+
+static int bar[tables][stools_per_table]={NULL};
+
+//cell=NULL- Empty seat
+//cell=0 - dirty seat
+//cell>0 - group ID
+//reinitialize cells to NULL after cleaning
+//static bool stool_occupied[Tstools] = {false}; 
+
+
+bool stools_are_adjacent(int t1, int s1, int t2, int s2) {
+    // input validation: check table and stool boundaries
+    if (t1 < 0 || t1 >= tables || t2 < 0 || t2 >= tables ||
+        s1 < 0 || s1 >= stools_per_table || s2 < 0 || s2 >= stools_per_table) {
+        return false;
+    }
+
+    if (t1 == t2 && (s1 == s2 + 1 || s1 == s2 - 1)) {//adjacency within the same table
+        return true;
+    }
+
+    if ((t2 == t1 + 1 && s1 == stools_per_table - 1 && s2 == 0) ||  // check next table adjacency
+        (t1 == t2 + 1 && s1 == 0 && s2 == stools_per_table - 1)) {  // check previous table adjacency
+        return true;
+    }
+
+    return false;
+}
+
+/*bool stools_are_adjacent(int s1, int s2) {
+
     // Return false if out of range, or if same stool
     if (s1 < 0 || s1 >= Tstools|| s2 < 0 || s2 >= Tstools || s1 == s2)
         return false;
@@ -25,7 +55,7 @@ bool stools_are_adjacent(int s1, int s2) {
     }
 
     return false;
-}
+}*/
 
 int main(void) {
 
