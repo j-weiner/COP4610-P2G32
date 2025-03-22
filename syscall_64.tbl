@@ -435,6 +435,6 @@
 547	x32	pwritev2		compat_sys_pwritev64v2
 # This is the end of the legacy x32 range.  Numbers 548 and above are
 # not special and are not to be used for x32-specific syscalls.
-548     64      bar_open                open_bar                                                                      
-549     64      bar_group_arrive        bar_group_arrive                                                              
-550     64      bar_close               close_bar
+548     common  sys_open_bar                                                                      
+549     common  sys_bar_group_arrive                                                              
+550     common  sys_close_bar
