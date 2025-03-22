@@ -1317,6 +1317,6 @@ int __sys_getsockopt(int fd, int level, int optname, char __user *optval,
 int __sys_setsockopt(int fd, int level, int optname, char __user *optval,
 		int optlen);
 asmlinkage long sys_open_bar(void);
-asmlinkage long sys_bar_group_arrive(void);
+asmlinkage long sys_bar_group_arrive(int id, int num_customers, int stay_duration, int spending, int waiting_time);
 asmlinkage long sys_close_bar(void);
 #endif
