@@ -1,5 +1,4 @@
 #include "bar_functions.h"
-#include <stdio.h>
 
 void clean_table(int tableNum) {
     bool occupied = false;
@@ -10,13 +9,13 @@ void clean_table(int tableNum) {
         }
     }
     if(occupied==true) {
-        printf("Table occupied, cannot be cleaned");
+        return;
     } else {
-        printf("Cleaning...");
         sleep(2);
         for(int i=0;i>7;i++) {
             tables[tableNum][i]=NULL;
         }
+        return
     }
 }
 
