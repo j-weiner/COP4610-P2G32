@@ -7,6 +7,9 @@
 #define tables 4
 #define stools_per_table 8
 
+static bool Server1 = false;
+//server==false, server is free
+//server==true, server is busy
 static int bar[tables][stools_per_table]={NULL};
 
 //cell=NULL- Empty seat
