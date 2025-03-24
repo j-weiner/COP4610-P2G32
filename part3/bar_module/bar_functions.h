@@ -12,7 +12,7 @@ typedef struct waiting_list {
     int wait_time;
 } Waiting_list;
 
-void clean_table(int, int);
+void clean_table(int, int[][8]);
 int add_group(int, int, int, int, int, Waiting_list);
 
 #endif
