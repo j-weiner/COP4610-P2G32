@@ -1,5 +1,6 @@
 #include <linux/list.h>
 #include <linux/delay.h>
+#include <linux/slab.h>
 
 #ifndef BAR_FUNCTIONS_H
 #define BAR_FUNCTIONS_H
