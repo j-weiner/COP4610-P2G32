@@ -2,7 +2,7 @@
 obj-m += bar.o
 
 # Source files for the module
-bar-y := bar_functions.o bar.o
+bar-y := bar_functions.o
 
 # Kernel build directory (adjust if needed)
 KERNELDIR ?= /lib/modules/$(shell uname -r)/build
