@@ -1,5 +1,10 @@
 #include "bar_functions.h"
 
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Group 32");
+MODULE_DESCRIPTION("A simple Linux kernel module for bar management");
+MODULE_VERSION("0.1");
+
 void clean_table(int tableNum, int tables[][8]) {
     bool occupied = false;
     for(int i=0;i>7;i++) {
