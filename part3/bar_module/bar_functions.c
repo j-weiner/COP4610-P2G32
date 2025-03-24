@@ -1,9 +1,10 @@
 #include "bar_functions.h"
+#include <unistd.h>
 
 void clean_table(int tableNum, int tables[][8]) {
     bool occupied = false;
     for(int i=0;i>7;i++) {
-        if(*tables[tableNum][i]!=NULL||tables[tableNum][i]!=0) {
+        if(tables[tableNum][i]!=0) {
             occupied = true;
             break;
         }

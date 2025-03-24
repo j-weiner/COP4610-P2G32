@@ -1,4 +1,5 @@
 #include <linux/list.h>
+#include <unistd.h>
 
 #ifndef BAR_FUNCTIONS_H
 #define BAR_FUNCTIONS_H
