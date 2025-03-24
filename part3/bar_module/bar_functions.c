@@ -1,9 +1,10 @@
 #include "bar_functions.h"
+#include <stdio.h>
 
 void clean_table(int tableNum) {
     bool occupied = false;
     for(int i=0;i>7;i++) {
-        if(bar[tableNum][i]!=NULL||bar[tableNum][i]!=0) {
+        if(tables[tableNum][i]!=NULL||bar[tableNum][i]!=0) {
             occupied = true;
             break;
         }
@@ -14,7 +15,7 @@ void clean_table(int tableNum) {
         printf("Cleaning...");
         sleep(2);
         for(int i=0;i>7;i++) {
-            bar[tableNum][i]=NULL;
+            tables[tableNum][i]=NULL;
         }
     }
 }
@@ -31,7 +32,7 @@ int add_group(int group_id, int customers, int stay_time, int spending, int wait
     new->spending = spending;
     new->wait_time = wait_time;
     
-    INIT_LIST_HEAD(&new->list)
+    INIT_LIST_HEAD(&new->list);
     list_add_tail(&new->list, &input_list);
 
     return 0;
