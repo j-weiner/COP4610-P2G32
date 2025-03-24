@@ -1,3 +1,5 @@
+#include <linux/list.h>
+
 #ifndef BAR_FUNCTIONS_H
 #define BAR_FUNCTIONS_H
 
@@ -10,6 +12,7 @@ typedef struct waiting_list {
     int wait_time;
 } Waiting_list;
 
-int add_group(int, int, int, int, int);
+void clean_table(int);
+int add_group(int, int, int, int, int, Waiting_list);
 
 #endif

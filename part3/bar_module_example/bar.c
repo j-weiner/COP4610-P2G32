@@ -26,6 +26,7 @@ static bool bar_open = false;
 static int tables[TABLES][STOOLS_PER_TABLE];
 static struct server_status servers[1]; // One server
 
+
 //stats
 static unsigned long groups_served = 0;
 static unsigned long customers_served = 0;
@@ -88,10 +89,10 @@ static int bar_proc_open(struct inode *inode, struct file *file)
 }
 
 static const struct proc_ops bar_proc_fops = {
-    .proc_open = bar_proc_open,
-    .proc_read = seq_read,
-    .proc_lseek = seq_lseek,
-    .proc_release = single_release,
+    .proc_open = bar_proc_open;
+    .proc_read = seq_read;
+    .proc_lseek = seq_lseek;
+    .proc_release = single_release;
 };
 
 // System call stubs
@@ -107,9 +108,7 @@ int open_bar(void) {
 }
 
 int bar_group_arrive(int id, int num_customers, int stay_duration, int spending, int waiting_time) {
-    mutex_lock(&bar_lock);
-    // Implement group arrival logic here
-    mutex_unlock(&bar_lock);
+    add_group(id, num_customers, stay_duration, spending, waiting_time, lobby);
     return 0;
 }
 
@@ -130,7 +129,10 @@ static int __init syscheck_init(void) {
         servers[i].current_group = 0;
     }
     mutex_unlock(&bar_lock);
-    
+
+    Waiting_list * lobby;
+    lobby=kmalloc(sizeof(lobby), __GFP_RECLAIM);
+
     bar_entry = proc_create(ENTRY_NAME, PERMS, PARENT, &bar_proc_fops);
     if(!bar_entry) return -ENOMEM;
     
