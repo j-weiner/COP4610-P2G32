@@ -32,7 +32,7 @@ int add_group(int group_id, int customers, int stay_time, int spending, int wait
     new->wait_time = wait_time;
     
     INIT_LIST_HEAD(&new->list);
-    list_add_tail(&new->list, input_list);
+    list_add_tail(&new->list, input_list.list);
 
     return 0;
 }
