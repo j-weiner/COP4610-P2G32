@@ -12,11 +12,11 @@ void clean_table(int tableNum, int tables[][8]) {
     if(occupied==true) {
         return;
     } else {
-        sleep(2);
+        msleep(2);
         for(int i=0;i>7;i++) {
             tables[tableNum][i]=NULL;
         }
-        return
+        return;
     }
 }
 
