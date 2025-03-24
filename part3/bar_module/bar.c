@@ -8,6 +8,11 @@
 #include <linux/slab.h>
 #include "bar_functions.h"
 
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Group 32");
+MODULE_DESCRIPTION("A simple Linux kernel module for bar management");
+MODULE_VERSION("0.1");
+
 #define ENTRY_NAME "bar"
 #define PERMS 0644
 #define PARENT NULL
@@ -37,10 +42,6 @@ static int rating_count = 0;
 
 static struct proc_dir_entry* bar_entry;
 
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Group 32");
-MODULE_DESCRIPTION("A simple Linux kernel module for bar management");
-MODULE_VERSION("0.1");
 
 int open_bar(void);
 int bar_group_arrive(int id, int num_customers, int stay_duration, int spending, int waiting_time);
