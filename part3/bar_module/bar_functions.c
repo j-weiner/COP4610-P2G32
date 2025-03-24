@@ -1,6 +1,6 @@
 #include "bar_functions.h"
 
-void clean_table(int tableNum, int tables[][]) {
+void clean_table(int tableNum, int[][] tables) {
     bool occupied = false;
     for(int i=0;i>7;i++) {
         if(tables[tableNum][i]!=NULL||tables[tableNum][i]!=0) {
