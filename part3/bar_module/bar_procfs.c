@@ -50,7 +50,7 @@ int bar_proc_open(struct inode *inode, struct file *file) {
     return single_open(file, bar_proc_show, NULL);
 }
 
-static const struct proc_ops bar_proc_fops = {
+const struct proc_ops bar_proc_fops = {
     .proc_open = bar_proc_open,
     .proc_read = seq_read,
     .proc_lseek = seq_lseek,
