@@ -6,7 +6,6 @@
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
 #include <linux/mutex.h>
-#include <linux/kthreads
 
 typedef struct waiting_list {
     struct list_head list;
