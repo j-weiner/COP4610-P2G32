@@ -139,10 +139,10 @@ static int bar_proc_open(struct inode *inode, struct file *file)
 }
 
 static const struct proc_ops bar_proc_fops = {
-    .proc_open = bar_proc_open;
-    .proc_read = seq_read;
-    .proc_lseek = seq_lseek;
-    .proc_release = single_release;
+    .proc_open = bar_proc_open,
+    .proc_read = seq_read,
+    .proc_lseek = seq_lseek,
+    .proc_release = single_release,
 };
 
 // System call stubs
