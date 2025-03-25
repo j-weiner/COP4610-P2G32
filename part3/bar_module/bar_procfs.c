@@ -4,18 +4,21 @@
 #include "bar.h"
 
 int bar_proc_show(struct seq_file *m, void *v) {
-    struct waiting_list *entry;
-
+    Waiting_list *entry;
     mutex_lock(&bar_lock);
-    
-    seq_printf(m, "Bar: %s\n", bar_open ? "open" : "closed");
-    seq_puts(m, "Waiting list:");
 
-    list_for_each_entry(entry, &lobby->list, list) {
-        seq_printf(m, "%d{%d} ", entry->group_id, entry->customers);
+    seq_printf(m, "Bar: %s\n", bar_open ? "open" : "closed");
+    seq_puts(m, "Waiting list: ");
+
+    if (lobby && !list_empty(&lobby->list)) {
+        list_for_each_entry(entry, &lobby->list, list) {
+            seq_printf(m, "%d{%d} ", entry->group_id, entry->customers);
+        }
+    } else {
+        seq_puts(m, "(empty)");
     }
     seq_putc(m, '\n');
-    
+
     for (int i = 0; i < TABLES; i++) {
         seq_printf(m, "Table %d:", i+1);
         for (int j = 0; j < STOOLS_PER_TABLE; j++) {
@@ -23,35 +26,31 @@ int bar_proc_show(struct seq_file *m, void *v) {
         }
         seq_putc(m, '\n');
     }
-    
+
     for (int i = 0; i < ARRAY_SIZE(servers); i++) {
         seq_printf(m, "Server %d: %s\n", i+1, servers[i].busy ? "busy" : "idle");
     }
-    
+
     seq_printf(m, "Total groups served: %lu\n", groups_served);
     seq_printf(m, "Total customers served: %lu\n", customers_served);
     seq_printf(m, "Total groups left: %lu\n", groups_left);
     seq_printf(m, "Profit: %d\n", profit);
-    
-    // floats break the kernel, must use value * 1000 for storage
+
     if (rating_count > 0) {
-        int scaled_rating = rating_total / rating_count;
-        seq_printf(m, "Review rating: %d.%03d\n", 
-                  scaled_rating / 1000, 
-                  scaled_rating % 1000);
+        seq_printf(m, "Review rating: %d.%03d\n", rating_total / 1000, rating_total % 1000);
     } else {
         seq_puts(m, "Review rating: 0.000\n");
     }
-    
+
     mutex_unlock(&bar_lock);
     return 0;
 }
 
-int bar_proc_open(struct inode *inode, struct file *file) {
+static int bar_proc_open(struct inode *inode, struct file *file) {
     return single_open(file, bar_proc_show, NULL);
 }
 
-const struct proc_ops bar_proc_fops = {
+static const struct proc_ops bar_proc_fops = {
     .proc_open = bar_proc_open,
     .proc_read = seq_read,
     .proc_lseek = seq_lseek,
