@@ -25,7 +25,16 @@ int bar_proc_show(struct seq_file *m, void *v) {
     seq_printf(m, "Total customers served: %lu\n", customers_served);
     seq_printf(m, "Total groups left: %lu\n", groups_left);
     seq_printf(m, "Profit: %d\n", profit);
-    seq_printf(m, "Review rating: %.3f\n", (rating_count > 0) ? (rating_total / rating_count / 1000.0) : 0.0);
+    
+    // floats break the kernel, must use value * 1000 for storage
+    if (rating_count > 0) {
+        int scaled_rating = rating_total / rating_count;
+        seq_printf(m, "Review rating: %d.%03d\n", 
+                  scaled_rating / 1000, 
+                  scaled_rating % 1000);
+    } else {
+        seq_puts(m, "Review rating: 0.000\n");
+    }
     
     mutex_unlock(&bar_lock);
     return 0;

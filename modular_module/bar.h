@@ -31,7 +31,7 @@ extern unsigned long groups_served;
 extern unsigned long customers_served;
 extern unsigned long groups_left;
 extern int profit;
-extern float rating_total;
+extern int rating_total;
 extern int rating_count;
 extern struct proc_dir_entry* bar_entry;
 
