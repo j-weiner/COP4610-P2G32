@@ -1,6 +1,7 @@
 #ifndef BAR_H
 #define BAR_H
 
+#include "bar_def.h"
 #include <linux/list.h>
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
