@@ -2,7 +2,6 @@
 #include <linux/module.h>
 #include <linux/slab.h>
 #include "bar.h"
-#include "bar_def.h"
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Group 32");
