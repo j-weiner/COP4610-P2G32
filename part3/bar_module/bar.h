@@ -6,6 +6,7 @@
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
 #include <linux/mutex.h>
+#include <linux/kthreads
 
 typedef struct waiting_list {
     struct list_head list;
@@ -22,6 +23,7 @@ struct server_status {
 };
 
 // Global variables (defined in bar.c)
+
 extern struct mutex bar_lock;
 extern Waiting_list *lobby;
 extern bool bar_open;
