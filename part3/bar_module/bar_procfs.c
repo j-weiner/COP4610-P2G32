@@ -3,7 +3,7 @@
 #include <linux/uaccess.h>
 #include "bar.h"
 
-static int bar_proc_show(struct seq_file *m, void *v) {
+int bar_proc_show(struct seq_file *m, void *v) {
     Waiting_list *entry;
     mutex_lock(&bar_lock);
 
@@ -46,7 +46,7 @@ static int bar_proc_show(struct seq_file *m, void *v) {
     return 0;
 }
 
-static int bar_proc_open(struct inode *inode, struct file *file) {
+int bar_proc_open(struct inode *inode, struct file *file) {
     return single_open(file, bar_proc_show, NULL);
 }
 
