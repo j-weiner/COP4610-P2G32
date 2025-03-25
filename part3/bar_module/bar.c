@@ -56,7 +56,7 @@ int open_bar(void);
 int bar_group_arrive(int id, int num_customers, int stay_duration, int spending, int waiting_time);
 int close_bar(void);
 void clean_table(int, int [][8]);
-int add_group(int, int, int, int, int, Waiting_list)
+int add_group(int, int, int, int, int, Waiting_list);
 
 void clean_table(int tableNum, int tables[][8]) {
     bool occupied = false;
