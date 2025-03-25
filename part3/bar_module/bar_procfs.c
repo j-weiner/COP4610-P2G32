@@ -3,7 +3,7 @@
 #include <linux/uaccess.h>
 #include "bar.h"
 
-int bar_proc_show(struct seq_file *m, void *v) {
+static int bar_proc_show(struct seq_file *m, void *v) {
     Waiting_list *entry;
     mutex_lock(&bar_lock);
 
