@@ -6,6 +6,7 @@
 #include <linux/mutex.h>
 #include <linux/seq_file.h>
 #include <linux/slab.h>
+#include <linux/delay.h>
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Group 32");
@@ -54,6 +55,7 @@ static struct proc_dir_entry* bar_entry;
 int open_bar(void);
 int bar_group_arrive(int id, int num_customers, int stay_duration, int spending, int waiting_time);
 int close_bar(void);
+void clean_table(int, int [][8]);
 
 void clean_table(int tableNum, int tables[][8]) {
     bool occupied = false;
