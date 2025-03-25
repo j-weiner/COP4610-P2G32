@@ -4,13 +4,13 @@
 #include "bar.h"
 
 int bar_proc_show(struct seq_file *m, void *v) {
-    struct Waiting_list *entry;
+    struct waiting_list *entry;
 
     mutex_lock(&bar_lock);
     
     seq_printf(m, "Bar: %s\n", bar_open ? "open" : "closed");
     seq_puts(m, "Waiting list:");
-    
+
     list_for_each_entry(entry, &lobby->list, list) {
         seq_printf(m, "%d{%d} ", entry->group_id, entry->customers);
     }
