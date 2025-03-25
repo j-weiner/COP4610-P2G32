@@ -18,7 +18,7 @@ unsigned long groups_served = 0;
 unsigned long customers_served = 0;
 unsigned long groups_left = 0;
 int profit = 0;
-float rating_total = 0;
+int rating_total = 0;
 int rating_count = 0;
 struct proc_dir_entry* bar_entry;
 
