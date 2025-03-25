@@ -30,6 +30,8 @@ typedef struct waiting_list {
 
 static struct mutex bar_lock;
 
+Waiting_list * lobby;
+
 struct server_status {
     int current_group;
     bool busy;
@@ -181,7 +183,7 @@ static int __init syscheck_init(void) {
     }
     mutex_unlock(&bar_lock);
 
-    Waiting_list * lobby;
+    
 
     lobby=kmalloc(sizeof(lobby), __GFP_RECLAIM);
 
