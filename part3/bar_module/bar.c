@@ -3,12 +3,12 @@
 #include <linux/slab.h>
 #include "bar.h"
 
+
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Group 32");
 MODULE_DESCRIPTION("A simple Linux kernel module for bar management");
 MODULE_VERSION("0.1");
 
-// Global variables
 struct mutex bar_lock;
 Waiting_list *lobby;
 bool bar_open = false;
@@ -30,8 +30,7 @@ int open_bar(void) {
 }
 
 int bar_group_arrive(int id, int num_customers, int stay_duration, int spending, int waiting_time) {
-    add_group(id, num_customers, stay_duration, spending, waiting_time, lobby);
-    return 0;
+    return add_group(id, num_customers, stay_duration, spending, waiting_time, lobby);
 }
 
 int close_bar(void) {
@@ -42,7 +41,7 @@ int close_bar(void) {
 }
 
 int add_group(int group_id, int customers, int stay_time, int spending, int wait_time, Waiting_list* input_list) {
-    Waiting_list *new = kmalloc(sizeof(Waiting_list), __GFP_RECLAIM);
+    Waiting_list *new = kmalloc(sizeof(Waiting_list), GFP_KERNEL);
     if (!new) return -ENOMEM;
 
     new->group_id = group_id;
@@ -58,33 +57,50 @@ int add_group(int group_id, int customers, int stay_time, int spending, int wait
 
 static int __init syscheck_init(void) {
     mutex_init(&bar_lock);
-    
     mutex_lock(&bar_lock);
+
     memset(tables, 0, sizeof(tables));
     for (int i = 0; i < ARRAY_SIZE(servers); i++) {
         servers[i].busy = false;
         servers[i].current_group = 0;
     }
+
+    lobby = kmalloc(sizeof(Waiting_list), GFP_KERNEL);
+    if (!lobby) {
+        mutex_unlock(&bar_lock);
+        return -ENOMEM;
+    }
+    INIT_LIST_HEAD(&lobby->list);
+
     mutex_unlock(&bar_lock);
 
-    lobby = kmalloc(sizeof(Waiting_list), __GFP_RECLAIM); 
-    if (!lobby) return -ENOMEM; 
-    
     bar_entry = proc_create(ENTRY_NAME, PERMS, PARENT, &bar_proc_fops);
-    if (!bar_entry) return -ENOMEM;
-    
+    if (!bar_entry) {
+        kfree(lobby);
+        return -ENOMEM;
+    }
+
     STUB_open_bar = open_bar;
     STUB_bar_group_arrive = bar_group_arrive;
     STUB_close_bar = close_bar;
-    
     return 0;
 }
 
 static void __exit syscheck_exit(void) {
-    remove_proc_entry(ENTRY_NAME, PARENT);
-    mutex_destroy(&bar_lock);
+    mutex_lock(&bar_lock);
+
+    Waiting_list *entry, *tmp;
+    list_for_each_entry_safe(entry, tmp, &lobby->list, list) {
+        list_del(&entry->list);
+        kfree(entry);
+    }
+
+    if (bar_entry) remove_proc_entry(ENTRY_NAME, PARENT);
     kfree(lobby);
-    
+
+    mutex_unlock(&bar_lock);
+    mutex_destroy(&bar_lock);
+
     STUB_open_bar = NULL;
     STUB_bar_group_arrive = NULL;
     STUB_close_bar = NULL;
