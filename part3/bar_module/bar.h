@@ -45,7 +45,7 @@ static int bar_proc_show(struct seq_file*, void *);
 static int bar_proc_open(struct inode*, struct file*);
 
 // ProcFS
-extern const struct proc_ops bar_proc_fops;
+extern static const struct proc_ops bar_proc_fops;
 
 // System call stubs
 extern int (*STUB_open_bar)(void);
