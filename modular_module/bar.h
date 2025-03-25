@@ -41,6 +41,8 @@ int bar_group_arrive(int id, int num_customers, int stay_duration, int spending,
 int close_bar(void);
 void clean_table(int tableNum);
 int add_group(int group_id, int customers, int stay_time, int spending, int wait_time, Waiting_list* input_list);
+int bar_proc_show(struct *seq_file, void *);
+int bar_proc_open(struct *inode, struct *file);
 
 // ProcFS
 extern const struct proc_ops bar_proc_fops;
