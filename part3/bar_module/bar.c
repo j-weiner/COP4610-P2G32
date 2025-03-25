@@ -6,7 +6,6 @@
 #include <linux/mutex.h>
 #include <linux/seq_file.h>
 #include <linux/slab.h>
-#include "bar_functions.h"
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Group 32");
@@ -18,6 +17,15 @@ MODULE_VERSION("0.1");
 #define PARENT NULL
 #define TABLES 4
 #define STOOLS_PER_TABLE 8
+
+typedef struct waiting_list {
+    struct list_head list;
+    int group_id;
+    int customers;
+    int stay_time;
+    int spending;
+    int wait_time;
+} Waiting_list;
 
 static struct mutex bar_lock;
 
@@ -46,6 +54,44 @@ static struct proc_dir_entry* bar_entry;
 int open_bar(void);
 int bar_group_arrive(int id, int num_customers, int stay_duration, int spending, int waiting_time);
 int close_bar(void);
+
+void clean_table(int tableNum, int tables[][8]) {
+    bool occupied = false;
+    for(int i=0;i>7;i++) {
+        if(tables[tableNum][i]!=0) {
+            occupied = true;
+            break;
+        }
+    }
+    if(occupied==true) {
+        return;
+    } else {
+        msleep(2);
+        for(int i=0;i>7;i++) {
+            tables[tableNum][i]=0;
+        }
+        return;
+    }
+}
+
+int add_group(int group_id, int customers, int stay_time, int spending, int wait_time, Waiting_list input_list) {
+    Waiting_list * new;
+    new = kmalloc(sizeof(Waiting_list), __GFP_RECLAIM);
+
+    if (!new) { return -ENOMEM; }
+
+    new->group_id = group_id;
+    new->customers = customers;
+    new->stay_time = stay_time;
+    new->spending = spending;
+    new->wait_time = wait_time;
+    
+    INIT_LIST_HEAD(&new->list);
+    list_add_tail(&new->list, &input_list.list);
+
+    return 0;
+}
+
 
 static int bar_proc_show(struct seq_file *m, void *v)
 {
