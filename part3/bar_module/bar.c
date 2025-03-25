@@ -52,6 +52,7 @@ static int rating_count = 0;
 static struct proc_dir_entry* bar_entry;
 
 
+
 int open_bar(void);
 int bar_group_arrive(int id, int num_customers, int stay_duration, int spending, int waiting_time);
 int close_bar(void);
@@ -157,7 +158,7 @@ int open_bar(void) {
     return 0;
 }
 
-int bar_group_arrive(int id, int num_customers, int stay_duration, int spending, int waiting_time) {
+int bar_group_arrive(int id, int num_customers, int stay_duration, int spending, int waiting_time, Waiting_list lobby) {
     add_group(id, num_customers, stay_duration, spending, waiting_time, lobby);
     return 0;
 }
@@ -181,6 +182,7 @@ static int __init syscheck_init(void) {
     mutex_unlock(&bar_lock);
 
     Waiting_list * lobby;
+
     lobby=kmalloc(sizeof(lobby), __GFP_RECLAIM);
 
     bar_entry = proc_create(ENTRY_NAME, PERMS, PARENT, &bar_proc_fops);
