@@ -4,10 +4,17 @@
 #include "bar.h"
 
 int bar_proc_show(struct seq_file *m, void *v) {
+    struct Waiting_list *entry;
+
     mutex_lock(&bar_lock);
     
     seq_printf(m, "Bar: %s\n", bar_open ? "open" : "closed");
-    seq_puts(m, "Waiting list:\n");
+    seq_puts(m, "Waiting list:");
+    
+    list_for_each_entry(entry, &lobby->list, list) {
+        seq_printf(m, "%d{%d} ", entry->group_id, entry->customers);
+    }
+    seq_putc(m, '\n');
     
     for (int i = 0; i < TABLES; i++) {
         seq_printf(m, "Table %d:", i+1);
