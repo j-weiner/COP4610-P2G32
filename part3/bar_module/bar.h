@@ -22,11 +22,6 @@ typedef struct waiting_list {
     int wait_time;
 } Waiting_list;
 
-struct server_status {
-    int current_group;
-    bool busy;
-};
-
 // Global variables (defined in bar.c)
 
 extern struct mutex bar_lock;
