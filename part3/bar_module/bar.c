@@ -13,7 +13,7 @@ struct mutex bar_lock;
 Waiting_list *lobby;
 bool bar_open = false;
 int tables[TABLES][STOOLS_PER_TABLE];
-struct server_status servers[1];
+Server_status servers[1];
 unsigned long groups_served = 0;
 unsigned long customers_served = 0;
 unsigned long groups_left = 0;
