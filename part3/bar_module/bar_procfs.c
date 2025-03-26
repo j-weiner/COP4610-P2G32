@@ -1,11 +1,8 @@
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
 #include <linux/uaccess.h>
+#include <linux/math.h>
 #include "bar.h"
-
-static int abs(int x) {
-    return (x < 0) ? -x : x;//local function for abs(), math unavailable in kernel
-}
 
 int bar_proc_show(struct seq_file *m, void *v) {
     Waiting_list *entry;
