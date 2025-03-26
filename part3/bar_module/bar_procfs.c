@@ -34,7 +34,7 @@ int bar_proc_show(struct seq_file *m, void *v) {
     for (int i = 0; i < ARRAY_SIZE(servers); i++) {
         seq_printf(m, "Server %d:", i+1);
         if(servers[i].server_state==0) {
-            seq_printf(m, "idle\n")
+            seq_printf(m, "idle\n");
         }else if(servers[i].server_state<0) {
             seq_printf(m, "Cleaning table: %d\n", abs(servers[i].server_state));
         }else if(servers[i].server_state>0) {
