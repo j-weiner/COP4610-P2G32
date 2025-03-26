@@ -6,6 +6,7 @@
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
 #include <linux/mutex.h>
+#include <math.h>
 
 typedef struct server_status {
     struct task_struct *thread;

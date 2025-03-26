@@ -28,7 +28,14 @@ int bar_proc_show(struct seq_file *m, void *v) {
     }
 
     for (int i = 0; i < ARRAY_SIZE(servers); i++) {
-        seq_printf(m, "Server %d: %s\n", i+1, servers[i].busy ? "busy" : "idle");
+        seq_printf(m, "Server %d:", i+1);
+        if(servers[i].server_state==0) {
+            seq_printf(m, "idle\n")
+        }else if(servers[i].server_state<0) {
+            seq_printf(m, "Cleaning table: %d\n", abs(servers[i].server_state));
+        }else if(servers[i].server_state>0) {
+            seq_printf(m, "Seating group: %d\n", servers[i].server_state);
+        }
     }
 
     seq_printf(m, "Total groups served: %lu\n", groups_served);
