@@ -7,6 +7,7 @@
 #include <linux/seq_file.h>
 #include <linux/mutex.h>
 
+
 typedef struct server_status {
     struct task_struct *thread;
     int server_state;
