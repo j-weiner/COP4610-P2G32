@@ -26,7 +26,7 @@ int bar_proc_show(struct seq_file *m, void *v) {
             if(tables[i][j] > 0) {
                 seq_printf(m, " [%d]", tables[i][j]);
             } else if(tables[i][j] == -1) {
-                seq_printf(m, " [X]", tables[i][j]);
+                seq_printf(m, " [X]");
             } else
             seq_printf(m, " [ ]");
         }
