@@ -23,7 +23,12 @@ int bar_proc_show(struct seq_file *m, void *v) {
     for (int i = 0; i < TABLES; i++) {
         seq_printf(m, "Table %d:", i+1);
         for (int j = 0; j < STOOLS_PER_TABLE; j++) {
-            seq_printf(m, " [%c]", tables[i][j] ? 'X' : ' ');
+            if(tables[i][j] > 0) {
+                seq_printf(m, " [%d]", tables[i][j]);
+            } else if(tables[i][j] == -1) {
+                seq_printf(m, " [X]", tables[i][j]);
+            } else
+            seq_printf(m, " [ ]");
         }
         seq_putc(m, '\n');
     }

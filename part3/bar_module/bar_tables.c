@@ -19,6 +19,9 @@ void clean_table(int tableNum) {
         }
     }
     if (!occupied) {
+        for (int i = 0; i < STOOLS_PER_TABLE; i++) {
+            tables[tableNum][i] = -1;
+        }
         msleep(2);
         for (int i = 0; i < STOOLS_PER_TABLE; i++) {
             tables[tableNum][i] = 0;
