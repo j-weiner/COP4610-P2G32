@@ -31,7 +31,7 @@ int find_available_table(int needed_stools) {
         return -1;
     }
     for (int i = 0; i <= 32 - needed_stools; i++) {
-        if ((i + needed_stools - 1) >= TOTAL_STOOLS && (i / STOOLS_PER_TABLE) == (TABLES - 1)) {
+        if ((i + needed_stools - 1) >= 32 && (i / STOOLS_PER_TABLE) == (TABLES - 1)) {
             continue; //if starting index will wrap from 32->0, skip
         }
         if (are_stools_available(i, needed_stools)) {
