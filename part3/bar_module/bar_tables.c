@@ -19,9 +19,6 @@ void clean_table(int tableNum) {
         }
     }
     if (!occupied) {
-        for (int i = 0; i < STOOLS_PER_TABLE; i++) {
-            tables[tableNum][i] = -1;
-        }
         msleep(2);
         for (int i = 0; i < STOOLS_PER_TABLE; i++) {
             tables[tableNum][i] = 0;
@@ -50,4 +47,5 @@ void occupy_table(int table_idx, int group_id, int customers) {
         int stool_idx = table_idx + i;
         tables[stool_idx / STOOLS_PER_TABLE][stool_idx % STOOLS_PER_TABLE] = group_id;
     }
+    msleep(2);
 }
