@@ -11,7 +11,7 @@ typedef struct server_status {
     struct task_struct *thread;
     int server_state;
     bool stop_thread;
-}
+};
 
 typedef struct waiting_list {
     struct list_head list;
