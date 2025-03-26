@@ -61,7 +61,7 @@ static int __init syscheck_init(void) {
 
     memset(tables, 0, sizeof(tables));
     for (int i = 0; i < ARRAY_SIZE(servers); i++) {
-        servers[i].current_state = 0;
+        servers[i].server_state = 0;
     }
 
     lobby = kmalloc(sizeof(Waiting_list), GFP_KERNEL);
