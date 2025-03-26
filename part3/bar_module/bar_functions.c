@@ -36,3 +36,11 @@ int add_group(int group_id, int customers, int stay_time, int spending, int wait
 
     return 0;
 }
+
+//Trying some pseudocode-ish?
+//void clean_dirty_tables(bar){
+// Check if the table was already used by a certain group and the state is not cleared
+// Or create I a list that has the list of dirty tables from the function
+// Iterates and use the clean_table function for each table Num
+//
+//}

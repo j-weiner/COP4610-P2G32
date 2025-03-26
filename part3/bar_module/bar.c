@@ -100,7 +100,7 @@ extern int (*STUB_open_bar)(void);
 extern int (*STUB_bar_group_arrive)(int,int,int,int,int);
 extern int (*STUB_close_bar)(void);
 
-int open_bar(void) {
+int open_bar(void) { //We are good with open bar being here, just return the status of the open bar, state 
     mutex_lock(&bar_lock);
     bar_open = true;
     mutex_unlock(&bar_lock);
@@ -108,13 +108,14 @@ int open_bar(void) {
 }
 
 int bar_group_arrive(int id, int num_customers, int stay_duration, int spending, int waiting_time) {
-    add_group(id, num_customers, stay_duration, spending, waiting_time, lobby);
+    add_group(id, num_customers, stay_duration, spending, waiting_time, lobby); 
     return 0;
 }
 
 int close_bar(void) {
     mutex_lock(&bar_lock);
     bar_open = false;
+    //Does the function that is needed to close the bar
     mutex_unlock(&bar_lock);
     return 0;
 }
