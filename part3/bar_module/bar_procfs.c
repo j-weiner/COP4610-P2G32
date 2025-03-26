@@ -3,8 +3,8 @@
 #include <linux/uaccess.h>
 #include "bar.h"
 
-static inline int abs(int x) {
-    return (x < 0) ? -x : x;//inline absolute value function, math.h unavailable.
+static int abs(int x) {
+    return (x < 0) ? -x : x;//local function for abs(), math unavailable in kernel
 }
 
 int bar_proc_show(struct seq_file *m, void *v) {
