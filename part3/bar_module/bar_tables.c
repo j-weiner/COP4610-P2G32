@@ -16,3 +16,11 @@ void clean_table(int tableNum) {
         }
     }
 }
+
+int find_available_table(int needed_stools) {
+
+};
+
+void occupy_table(int table_idx, int group_id, int customers) {
+
+};
