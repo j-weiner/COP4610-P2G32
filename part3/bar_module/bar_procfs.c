@@ -3,6 +3,10 @@
 #include <linux/uaccess.h>
 #include "bar.h"
 
+static inline int abs(int x) {
+    return (x < 0) ? -x : x;//inline absolute value function, math.h unavailable.
+}
+
 int bar_proc_show(struct seq_file *m, void *v) {
     Waiting_list *entry;
     mutex_lock(&bar_lock);
