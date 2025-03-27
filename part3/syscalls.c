@@ -12,7 +12,7 @@ EXPORT_SYMBOL(STUB_bar_group_arrive);
 EXPORT_SYMBOL(STUB_close_bar);
 
 SYSCALL_DEFINE0(open_bar){
-    printk(KERN_NOTICE "Inside SYSCALL_DEFINE0 block. sys_open_bar");
+    printk(KERN_NOTICE "Inside SYSCALL_DEFINE0 block. sys_open_bar");//"function formatting for printing syscall name was causing compile issues
     if(STUB_open_bar!=NULL) {
         return STUB_open_bar(); } else return -ENOSYS;
 }

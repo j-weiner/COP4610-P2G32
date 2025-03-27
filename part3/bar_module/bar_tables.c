@@ -49,3 +49,29 @@ void occupy_table(int table_idx, int group_id, int customers) {
     }
     msleep(2);
 }
+
+int spot_check(void) {//naive solution
+    bool empty = true;
+    bool dirty = false;
+    for(int i = 0; i < TABLES; i++) {
+        for(int j = 0; j < STOOLS_PER_TABLE; j++) {
+            switch(tables[i][j]) {  
+                case -1:
+                    dirty=true;
+                    break;
+                case 0:
+                    break;
+                default:
+                    empty=false;
+                    break;
+            }
+        }
+        if(empty&&dirty) {
+            return i;
+        } else {
+            empty=true;
+            dirty=false;
+        }
+    }
+    return -1;
+}

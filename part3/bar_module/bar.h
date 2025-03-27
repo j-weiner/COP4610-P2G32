@@ -50,6 +50,7 @@ int bar_proc_open(struct inode*, struct file*);
 //int server_thread_fn(void *data);
 int find_available_table(int needed_stools);
 void occupy_table(int table_idx, int group_id, int customers);
+int spot_check(void);
 
 // ProcFS
 extern const struct proc_ops bar_proc_fops;
