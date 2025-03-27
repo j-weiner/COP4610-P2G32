@@ -24,9 +24,9 @@ int bar_proc_show(struct seq_file *m, void *v) {
         seq_printf(m, "Table %d:", i+1);
         for (int j = 0; j < STOOLS_PER_TABLE; j++) {
             if(tables[i][j] > 0) {
-                seq_printf(m, " [%d]", tables[i][j]);
-            } else if(tables[i][j] == -1) {
-                seq_printf(m, " [X]");
+                seq_printf(m, " [%d]", tables[i][j]);//iterates through each cell & table, 
+            } else if(tables[i][j] == -1) {//printing the cell as either 'X' for dirty, 
+                seq_printf(m, " [X]");//' ' for empty, or 'n' for occupied by guest of group_id=n
             } else
             seq_printf(m, " [ ]");
         }
@@ -34,7 +34,7 @@ int bar_proc_show(struct seq_file *m, void *v) {
     }
 
     for (int i = 0; i < ARRAY_SIZE(servers); i++) {
-        seq_printf(m, "Server %d:", i+1);
+        seq_printf(m, "Server %d:", i+1);//iterates through server aray, printing current behaviour
         if(servers[i].server_state==0) {
             seq_printf(m, " idle\n");
         }else if(servers[i].server_state<0) {
@@ -52,7 +52,7 @@ int bar_proc_show(struct seq_file *m, void *v) {
     if (rating_count > 0) {
         seq_printf(m, "Review rating: %d.%03d\n", rating_total / 1000, rating_total % 1000);
     } else {
-        seq_puts(m, "Review rating: 0.000\n");
+        seq_puts(m, "Review rating: 1.000\n");
     }
 
     mutex_unlock(&bar_lock);
